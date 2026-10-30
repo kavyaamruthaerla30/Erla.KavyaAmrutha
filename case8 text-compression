@@ -1,0 +1,27 @@
+"""Project 35: Text Compression Using Character Runs (Run-Length Encoding)"""
+
+def compress_text(text):
+    if not text:
+        return ""
+    result = []
+    count = 1
+    for index in range(1, len(text)):
+        if text[index] == text[index - 1]:
+            count += 1
+        else:
+            result.append(text[index - 1] + str(count))
+            count = 1
+    result.append(text[-1] + str(count))
+    return "".join(result)
+
+def main():
+    original = input("Enter text to compress: ")
+    compressed = compress_text(original)
+    print("Original text:", original)
+    print("Compressed text:", compressed)
+    if original:
+        print(f"Original length: {len(original)}")
+        print(f"Compressed length: {len(compressed)}")
+
+if __name__ == "__main__":
+    main()
