@@ -1,0 +1,27 @@
+"""Project 31: String-Based Examination Answer Evaluation"""
+
+def main():
+    answer = input("Enter the student's answer: ").lower()
+    keywords_text = input("Enter expected keywords separated by commas: ")
+    try:
+        marks_per_keyword = float(input("Marks per matched keyword: "))
+    except ValueError:
+        print("Marks must be numeric.")
+        return
+
+    keywords = [word.strip().lower() for word in keywords_text.split(",") if word.strip()]
+    if marks_per_keyword < 0 or not keywords:
+        print("Enter at least one keyword and a non-negative mark value.")
+        return
+
+    matched = [word for word in keywords if word in answer]
+    missed = [word for word in keywords if word not in answer]
+    score = len(matched) * marks_per_keyword
+
+    print("\nEvaluation Result")
+    print("Matched keywords:", ", ".join(matched) if matched else "None")
+    print("Missing keywords:", ", ".join(missed) if missed else "None")
+    print(f"Score: {score:g} / {len(keywords) * marks_per_keyword:g}")
+
+if __name__ == "__main__":
+    main()
