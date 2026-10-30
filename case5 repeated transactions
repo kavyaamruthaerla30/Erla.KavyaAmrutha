@@ -1,0 +1,22 @@
+"""Project 28: Repeated Transaction Detection"""
+
+def main():
+    raw_ids = input("Enter transaction IDs separated by spaces: ").split()
+    seen = set()
+    repeated = []
+    already_reported = set()
+
+    for transaction_id in raw_ids:
+        if transaction_id in seen and transaction_id not in already_reported:
+            repeated.append(transaction_id)
+            already_reported.add(transaction_id)
+        seen.add(transaction_id)
+
+    print("\nTransaction IDs:", raw_ids)
+    if repeated:
+        print("Repeated transaction IDs:", " ".join(repeated))
+    else:
+        print("No repeated transaction IDs found.")
+
+if __name__ == "__main__":
+    main()
