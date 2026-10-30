@@ -1,0 +1,40 @@
+"""Project 42: Student Marks Matrix Analysis"""
+
+def main():
+    try:
+        students = int(input("Number of students: "))
+        subjects = 6
+        if students <= 0:
+            print("Number of students must be positive.")
+            return
+
+        matrix = []
+        for student in range(students):
+            values = input(f"Enter {subjects} marks for student {student + 1}: ").split()
+            if len(values) != subjects:
+                print(f"Please enter exactly {subjects} marks.")
+                return
+            row = [float(value) for value in values]
+            if any(mark < 0 or mark > 100 for mark in row):
+                print("Marks must be between 0 and 100.")
+                return
+            matrix.append(row)
+    except ValueError:
+        print("Please enter valid numeric values.")
+        return
+
+    print("\nStudent-wise analysis")
+    for index, row in enumerate(matrix, start=1):
+        print(f"Student {index}: Total = {sum(row):.2f}, Average = {sum(row) / subjects:.2f}")
+
+    subject_averages = [sum(matrix[row][col] for row in range(students)) / students
+                        for col in range(subjects)]
+    print("\nSubject-wise averages:")
+    for col, average in enumerate(subject_averages, start=1):
+        print(f"Subject {col}: {average:.2f}")
+
+    best_student = max(range(students), key=lambda index: sum(matrix[index]) / subjects)
+    print(f"Top-performing student: Student {best_student + 1}")
+
+if __name__ == "__main__":
+    main()
