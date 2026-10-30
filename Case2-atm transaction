@@ -1,0 +1,48 @@
+#Project 13: ATM Transaction Sequence Simulation
+
+def main():
+    balance = float(input("Opening balance: "))
+    if balance < 0:
+        print("Opening balance cannot be negative.")
+        return
+
+    transactions = []
+    while True:
+        print("\n1. Deposit  2. Withdraw  3. Check balance  4. Finish")
+        choice = input("Choose an option: ").strip()
+
+        if choice == "1":
+            amount = float(input("Enter deposit amount: "))
+            if amount <= 0:
+                print("Amount must be positive.")
+                continue
+            balance += amount
+            transactions.append(f"Deposit: +{amount:.2f}")
+            print("Deposit successful.")
+        elif choice == "2":
+            amount = float(input("Enter withdrawal amount: "))
+            if amount <= 0:
+                print("Amount must be positive.")
+            elif amount > balance:
+                print("Insufficient balance.")
+            else:
+                balance -= amount
+                transactions.append(f"Withdrawal: -{amount:.2f}")
+                print("Withdrawal successful.")
+        elif choice == "3":
+            print(f"Current balance: {balance:.2f}")
+        elif choice == "4":
+            break
+        else:
+            print("Invalid choice. Select 1, 2, 3, or 4.")
+
+    print("\nTransaction sequence:")
+    if transactions:
+        for number, item in enumerate(transactions, start=1):
+            print(f"{number}. {item}")
+    else:
+        print("No transactions made.")
+    print(f"Closing balance: {balance:.2f}")
+
+if __name__ == "__main__":
+    main()
