@@ -1,0 +1,41 @@
+"""Project 49: Tuple-Based Product Catalogue Audit"""
+
+def main():
+    count = int(input("Number of products: "))
+    if count <= 0:
+        print("Number of products must be positive.")
+        return
+
+    products = []
+    for index in range(count):
+        print(f"\nProduct {index + 1}")
+        product_id = input("ID: ").strip()
+        name = input("Name: ").strip()
+        try:
+            price = float(input("Unit price: "))
+        except ValueError:
+            print("Invalid price. Please restart and enter a number.")
+            return
+        if price < 0:
+            print("Price cannot be negative.")
+            return
+        products.append((product_id, name, price))
+
+    print("\nProduct Catalogue Audit")
+    seen_ids = set()
+    duplicate_ids = []
+    for product_id, name, price in products:
+        print(f"ID: {product_id} | Name: {name} | Unit price: {price:.2f}")
+        if product_id in seen_ids and product_id not in duplicate_ids:
+            duplicate_ids.append(product_id)
+        seen_ids.add(product_id)
+
+    if duplicate_ids:
+        print("Duplicate product IDs:", ", ".join(duplicate_ids))
+    else:
+        print("No duplicate product IDs found.")
+    total_value = sum(price for _, _, price in products)
+    print(f"Total catalogue value: {total_value:.2f}")
+
+if __name__ == "__main__":
+    main()
