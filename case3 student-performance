@@ -1,0 +1,34 @@
+#Project 17: Student Performance Trend Analysis"""
+
+def main():
+    marks_text = input("Enter marks in chronological order, separated by spaces: ")
+    try:
+        marks = [float(value) for value in marks_text.split()]
+    except ValueError:
+        print("Please enter numeric marks only.")
+        return
+
+    if len(marks) < 2 or any(mark < 0 or mark > 100 for mark in marks):
+        print("Enter at least two marks, each between 0 and 100.")
+        return
+
+    print("\nPerformance Trend")
+    for index, mark in enumerate(marks, start=1):
+        print(f"Assessment {index}: {mark:g}")
+
+    changes = [marks[i] - marks[i - 1] for i in range(1, len(marks))]
+    if all(change > 0 for change in changes):
+        trend = "Consistently improving"
+    elif all(change < 0 for change in changes):
+        trend = "Consistently declining"
+    elif all(change == 0 for change in changes):
+        trend = "No change"
+    else:
+        trend = "Fluctuating"
+
+    print(f"Average mark: {sum(marks) / len(marks):.2f}")
+    print(f"Overall change: {marks[-1] - marks[0]:+.2f}")
+    print(f"Trend: {trend}")
+
+if __name__ == "__main__":
+    main()
