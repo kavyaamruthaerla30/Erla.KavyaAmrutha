@@ -1,0 +1,29 @@
+#Project 12: Attendance Recovery Computation
+
+def main():
+    total = int(input("Enter total classes: "))
+    attended = int(input("Enter classes attended: "))
+    required = float(input("Enter required attendance %: "))
+
+    if total <= 0 or attended < 0 or attended > total or not 0 <= required <= 100:
+        print("Invalid input. Check the class counts and attendance percentage.")
+        return
+
+    current = attended / total * 100
+    print(f"Current attendance: {current:.2f}%")
+
+    if current >= required:
+        print("You have already met the required attendance.")
+        print("Additional classes required: 0")
+    else:
+        # Find the smallest x such that (attended + x)/(total + x) >= required/100
+        needed = (required * total - 100 * attended) / (100 - required)
+        classes_needed = max(0, int(needed) if needed == int(needed) else int(needed) + 1) if required < 100 else 0
+        if required == 100 and attended < total:
+            print("You must attend every future class to reach 100%; the target is approached but never reached.")
+        else:
+            print(f"Additional consecutive classes to attend: {classes_needed}")
+            print(f"Attendance after attending them: {(attended + classes_needed) / (total + classes_needed) * 100:.2f}%")
+
+if __name__ == "__main__":
+    main()
